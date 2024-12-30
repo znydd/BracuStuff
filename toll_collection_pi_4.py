@@ -51,3 +51,21 @@ except KeyboardInterrupt:
 
 finally:
     GPIO.cleanup()
+
+
+
+# Alternative for servo motor
+# Duty Cycle(%) = (1/18) * desired angle +2
+# ● A Duty Cycle of 12% yielded the full left position (180 degrees)
+# ● A Duty Cycle of 7% yielded the center position (90 degrees)
+# ● A Duty Cycle of 2% yielded the full left position ( 0 degree)
+
+GPIO.setup(17,GPIO.OUT)
+pwm=GPIO.PWM(17,50) #50 Hz
+pwm.start(7) #center(90 degrees)
+
+while True:
+    pwm.ChangeDutyCycle(5.3) # (left) 60 degree
+    sleep(1)
+    pwm.ChangeDutyCycle(8.7) # right
+    sleep(1)
